@@ -4,6 +4,11 @@ import hxPixels.Pixels;
 
 
 class PixelTools {
+  static public function enumerate(pixels:Pixels):PixelRectIterator {
+    var rect:_Rect = {x:0, y:0, w:pixels.width, h:pixels.height};
+    return new PixelRectIterator(pixels, rect);
+  }
+  
   static public function enumerateRect(pixels:Pixels, x:Int, y:Int, w:Int, h:Int):PixelRectIterator {
     var rect:_Rect = {x:x, y:y, w:w, h:h};
     return new PixelRectIterator(pixels, rect);
