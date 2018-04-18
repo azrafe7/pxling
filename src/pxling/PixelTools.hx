@@ -17,15 +17,12 @@ class PixelTools {
 
 /**
  * Iterates the specified rect along the x axis first, then y.
- * 
- * Public fields' values will be relative to (0,0).
  */
 class RectIterator {
   var rect:_Rect;
   var maxIdx:Int;
   var nextIdx:Int;
   
-  // relative to rect (i.e. they're initialized to 0)
   public var idx(default, null):Int;
   public var x(default, null):Int;
   public var y(default, null):Int;
@@ -33,8 +30,8 @@ class RectIterator {
   public function new(rect:_Rect)
   {
     this.rect = rect;
-    this.nextIdx = this.idx = this.x = this.y = 0;
     this.maxIdx = rect.w * rect.h;
+    reset();
   }
   
   public function hasNext() {
@@ -43,10 +40,16 @@ class RectIterator {
   
   public function next() {
     idx = nextIdx;
-    x = idx % rect.w;
-    y = Std.int(idx / rect.w);
+    x = rect.x + idx % rect.w;
+    y = rect.y + Std.int(idx / rect.w);
     nextIdx++;
     return this;
+  }
+  
+  public function reset() {
+    this.nextIdx = this.idx = 0;
+    this.x = rect.x;
+    this.y = rect.y;
   }
 }
 
