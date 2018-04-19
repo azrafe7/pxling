@@ -5,12 +5,12 @@ import hxPixels.Pixels;
 
 class PixelTools {
   static public function enumerate(pixels:Pixels):PixelRectIterator {
-    var rect:_Rect = {x:0, y:0, w:pixels.width, h:pixels.height};
+    var rect:IntRect = {x:0, y:0, w:pixels.width, h:pixels.height};
     return new PixelRectIterator(pixels, rect);
   }
   
   static public function enumerateRect(pixels:Pixels, x:Int, y:Int, w:Int, h:Int):PixelRectIterator {
-    var rect:_Rect = {x:x, y:y, w:w, h:h};
+    var rect:IntRect = {x:x, y:y, w:w, h:h};
     return new PixelRectIterator(pixels, rect);
   }
 }
@@ -19,7 +19,7 @@ class PixelTools {
  * Iterates the specified rect along the x axis first, then y.
  */
 class RectIterator {
-  var rect:_Rect;
+  var rect:IntRect;
   var maxIdx:Int;
   var nextIdx:Int;
   
@@ -27,7 +27,7 @@ class RectIterator {
   public var x(default, null):Int;
   public var y(default, null):Int;
   
-  public function new(rect:_Rect)
+  public function new(rect:IntRect)
   {
     this.rect = rect;
     this.maxIdx = rect.w * rect.h;
@@ -58,7 +58,7 @@ class PixelRectIterator extends RectIterator {
   
   public var pixel(get, set):Pixel;
   
-  public function new(pixels:Pixels, rect:_Rect)
+  public function new(pixels:Pixels, rect:IntRect)
   {
     super(rect);
     this.parent = pixels;
@@ -74,9 +74,18 @@ class PixelRectIterator extends RectIterator {
   }
 }
 
-typedef _Rect = {
-  var x:Int;
-  var y:Int;
-  var w:Int;
-  var h:Int;
+@:structInit
+class IntRect {
+  public var x:Int;
+  public var y:Int;
+  public var w:Int;
+  public var h:Int;
+  
+  inline public function new(x:Int, y:Int, w:Int, h:Int)
+  {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
 }
