@@ -34,7 +34,7 @@ class RectIterator {
     reset();
   }
   
-  public function hasNext() {
+  inline public function hasNext() {
     return nextIdx < maxIdx;
   }
   
@@ -62,11 +62,6 @@ class PixelRectIterator extends RectIterator {
   {
     super(rect);
     this.parent = pixels;
-  }
-  
-  override public function next() {
-    super.next();
-    return this;
   }
   
   inline function get_pixel():Pixel {
